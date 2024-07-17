@@ -2,6 +2,8 @@ package main
 
 import (
 	"testing"
+
+	"github.com/mileusna/useragent"
 )
 
 func TestDecodeData(t *testing.T) {
@@ -10,5 +12,16 @@ func TestDecodeData(t *testing.T) {
 		t.Fatal(err)
 	} else if data.SiteID != "my-site-id-here" {
 		t.Errorf("expected 'my-site-id-here' got %s", data.SiteID)
+	}
+}
+
+func TestAddEntry(t *testing.T) {
+	events = &Events{}
+	if err := events.Open(); err != nil {
+		t.Fatal(err)
+	}
+
+	if err := events.Add(Tracking{}, useragent.UserAgent{}); err != nil {
+		t.Error(err)
 	}
 }
